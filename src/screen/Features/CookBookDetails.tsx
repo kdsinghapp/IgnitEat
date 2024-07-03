@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../config/utils/colors';
 import { marginTop } from '../../config/utils/utils';
 import BookingDetailsModal from '../modals/BookingDetailsModal';
+import ScreenNameEnum from '../../routes/screenName.enum';
 const data = [
   { id: '1', name: 'Drumstick', image: image.fin },
   { id: '2', name: 'Cherry Tomatoes',image:image.tam  },
@@ -62,7 +63,11 @@ const CookBookDetails = () => {
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
+          <TouchableOpacity
+          onPress={()=>{
+            navigation.navigate(ScreenNameEnum.IngredientScreen)
+        }}
+          style={styles.itemContainer}>
             <Image source={item.image} style={styles.itemImage} />
             <Text style={styles.itemText}>{item.name}</Text>
             <View>
@@ -74,7 +79,7 @@ const CookBookDetails = () => {
             </TouchableOpacity>
             
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
       </View>

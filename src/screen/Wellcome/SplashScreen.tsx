@@ -15,7 +15,7 @@ const SplashScreen: React.FC<SplashScreenProps> = (props) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate(ScreenNameEnum.BOTTOM_TAB); 
+      navigation.navigate(ScreenNameEnum.LOGIN_SCREEN); 
     }, 3000);
 
     return () => clearTimeout(timer); 

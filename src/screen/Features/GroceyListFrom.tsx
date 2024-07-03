@@ -1,6 +1,9 @@
 // GroceryListForm.js
 import React, { useState } from 'react';
-import { SafeAreaView, View, TextInput, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { SafeAreaView, View, TextInput, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { colors } from '../../config/utils/colors';
+import { image } from '../../config/utils/images';
+import { marginTop } from '../../config/utils/utils';
 
 const GroceryListForm = () => {
   const [listName, setListName] = useState('');
@@ -23,17 +26,33 @@ const GroceryListForm = () => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+
+<View style={styles.header}>
+                  <TouchableOpacity onPress={() => { navigation.goBack(); }}>
+                      <Image source={image.back} style={styles.logo} />
+                  </TouchableOpacity>
+                  <Text style={styles.headerText}>Hack Aplate</Text>
+                  <TouchableOpacity onPress={() => { navigation.openDrawer(); }}>
+                      <Image source={image.menu} style={styles.menuIcon} />
+                  </TouchableOpacity>
+              </View>
       <View style={styles.iconContainer}>
-        {/* Replace this View with an Image component if you have an icon */}
-        <Text style={styles.iconText}>📝</Text>
+       <Image  source={image.book} style={{height:80,width:80}}/>
+       <View style={{
+        position:'absolute',
+        right:-5,
+        bottom:0
+       }}>
+        <Image source={image.Refresh} style={{height:30,width:30}} />
+       </View>
       </View>
-      <TextInput
-        style={styles.input}
-        placeholder="Grocery List Name"
-        value={listName}
-        onChangeText={setListName}
-      />
+      <View style={styles.inputContainer}>
+                        <TextInput  
+                            placeholder='Cook Book Name'                        
+                            style={styles.input}
+                        />
+                    </View>
       <ScrollView style={styles.itemsContainer}>
         {items.map((item, index) => (
           <Text key={index} style={styles.itemText}>• {item}</Text>
@@ -42,23 +61,52 @@ const GroceryListForm = () => {
       <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
         <Text style={styles.saveButtonText}>Save</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+    inputContainer: {
+        marginTop: 20,
+        backgroundColor: '#F7F8F8',
+        width: '90%',
+        height: 50,
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        alignSelf:'center',
+
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: marginTop,
+    },
+    logo: {
+        width: 30,
+        height: 30,
+    },
+    headerText: {
+        fontSize: 24,
+        fontWeight: '500',
+        fontFamily: 'anaktoria',
+        color: colors.txtColor,
+    },
+    menuIcon: {
+        width: 24,
+        height: 24,
+    },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f7f7f7',
+    backgroundColor: '#fff',
   },
   iconContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#004d00',
+  marginTop:20,
+   
     alignSelf: 'center',
     marginBottom: 20,
   },
@@ -67,29 +115,27 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   input: {
-    height: 40,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 20,
-    backgroundColor: '#fff',
+    
   },
   itemsContainer: {
     flex: 1,
-    backgroundColor: '#e9f5e9',
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: '#F7F8F8',
+    marginHorizontal:10,
+marginTop:20,
+    padding:20,
+    borderRadius:10,
     marginBottom: 20,
   },
   itemText: {
     fontSize: 16,
     marginBottom: 5,
+    color:'#9DB2BF'
   },
   saveButton: {
-    backgroundColor: '#004d00',
+    backgroundColor: colors.txtColor,
+    marginHorizontal:30,
     paddingVertical: 15,
-    borderRadius: 5,
+    borderRadius:10,
     alignItems: 'center',
   },
   saveButtonText: {

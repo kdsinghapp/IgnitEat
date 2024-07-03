@@ -5,6 +5,7 @@ import { image } from '../../config/utils/images';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../config/utils/colors';
 import { marginTop } from '../../config/utils/utils';
+import ScreenNameEnum from '../../routes/screenName.enum';
 
 const healthGoals = [
     { id: '1', title: 'Lose weight' },
@@ -101,7 +102,11 @@ const createMealPlan = () => {
                     />
                 </View>
 
-                <TouchableOpacity style={styles.nextButton}>
+                <TouchableOpacity 
+                    onPress={()=>{
+                        navigation.navigate(ScreenNameEnum.IngredientScreen)
+                    }}
+                style={styles.nextButton}>
                     <Text style={styles.nextButtonText}>Create</Text>
                 </TouchableOpacity>
             </ScrollView>

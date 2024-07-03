@@ -18,6 +18,7 @@ import ViewmealPlaning from "../screen/Features/ViewmealPlaning";
 import CookBookList from "../screen/Features/CookBookList";
 import CookBookDetails from "../screen/Features/CookBookDetails";
 import GroceryDetailsEdit from "../screen/Features/GroceryDetailsEdit";
+import GroceryListForm from "../screen/Features/GroceyListFrom";
 
 
 const _routes = {
@@ -90,6 +91,10 @@ const _routes = {
     {
       name: ScreenNameEnum.GroceryDetailsEdit,
       Component:GroceryDetailsEdit,
+    },
+    {
+      name: ScreenNameEnum.GroceryListForm,
+      Component:GroceryListForm,
     },
    
     

@@ -20,7 +20,8 @@ enum ScreenNameEnum {
   ViewmealPlaning='ViewmealPlaning',
   CookBookList='CookBookList',
   CookBookDetails='CookBookDetails',
-  GroceryDetailsEdit='GroceryDetailsEdit'
+  GroceryDetailsEdit='GroceryDetailsEdit',
+  GroceryListForm='GroceryListForm'
 
 }
 

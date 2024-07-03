@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors, marginTop } from '../../config/utils/utils';
 import Alram from '../../assets/svg/alrm.svg'
 import Downgreen from '../../assets/svg/right.svg'
+import ScreenNameEnum from '../../routes/screenName.enum';
 const recipes = [
     { id: 1, title: 'Beef And Eggplant Casserole- A Nice Dish For Noon Time...' },
     { id: 2, title: 'Beef And Eggplant Casserole- A Great Dish For Breakfast' },
@@ -53,7 +54,11 @@ const RecipeList = () => {
                 </View>
             ))}
             
-            <TouchableOpacity style={styles.createButton}>
+            <TouchableOpacity
+            onPress={()=>{
+                navigation.navigate(ScreenNameEnum.IngredientScreen)
+            }}
+            style={styles.createButton}>
                 <Text style={styles.createButtonText}>Create</Text>
             </TouchableOpacity>
             </ScrollView>

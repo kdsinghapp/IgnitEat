@@ -61,6 +61,7 @@ export const image={
    alu:require('../../assets/croping/al.png'),
    share2:require('../../assets/croping/share2.png'),
    G_list:require('../../assets/croping/groceryl.png'),
+   Refresh:require('../../assets/croping/refresh.png'),
 
 
 

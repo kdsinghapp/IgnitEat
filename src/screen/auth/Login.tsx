@@ -52,7 +52,11 @@ export default function Login() {
             style={styles.forgotPasswordButton}>
                 <Text style={styles.forgotPasswordText}>Forgot your password</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity 
+             onPress={()=>{
+                navigation.navigate(ScreenNameEnum.BOTTOM_TAB)
+            }}
+            style={styles.loginButton}>
                 <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
             <View style={styles.signupContainer}>
