@@ -19,6 +19,23 @@ import CookBookList from "../screen/Features/CookBookList";
 import CookBookDetails from "../screen/Features/CookBookDetails";
 import GroceryDetailsEdit from "../screen/Features/GroceryDetailsEdit";
 import GroceryListForm from "../screen/Features/GroceyListFrom";
+import MainDrawer from "../navigators/MainDrawer";
+import Profile from "../screen/Drawer/Profile";
+import Subscription from "../screen/Drawer/Subscription";
+import PersonalPre from "../screen/Drawer/PersonalPre";
+import TimerRingtone from "../screen/Drawer/TimerRingtone";
+import ChangePassword from "../screen/Drawer/ChangePassword";
+import ChnageUsername from "../screen/Drawer/ChnageUsername";
+import PrivacySetting from "../screen/Drawer/PrivacySetting";
+import TermCondition from "../screen/Drawer/TermCondition";
+import PrivacyPolicy from "../screen/Drawer/PrivacyPolicy";
+import Frequntly from "../screen/Drawer/Frequntly";
+import Notification from "../screen/Drawer/Notification";
+import SubscriptionOption from "../screen/Drawer/SubscriptionOption";
+import shareHackAplate from "../screen/Drawer/shareHackAplate";
+import RingtoneMenu from "../screen/Drawer/RingtonMenu";
+import NotificationDetails from "../screen/Drawer/NotificationDetails";
+import ShareMessage from "../screen/Drawer/Sharemessage";
 
 
 const _routes = {
@@ -95,6 +112,74 @@ const _routes = {
     {
       name: ScreenNameEnum.GroceryListForm,
       Component:GroceryListForm,
+    },
+    {
+      name: ScreenNameEnum.MainDrawer,
+      Component:MainDrawer,
+    },
+    {
+      name: ScreenNameEnum.Profile,
+      Component:Profile,
+    },
+    {
+      name: ScreenNameEnum.Subscription,
+      Component:Subscription,
+    },
+    {
+      name: ScreenNameEnum.Personal_preferences,
+      Component:PersonalPre,
+    },
+    {
+      name: ScreenNameEnum.Timer_ringtone,
+      Component:TimerRingtone,
+    },
+    {
+      name: ScreenNameEnum.Change_Password,
+      Component:ChangePassword,
+    },
+    {
+      name: ScreenNameEnum.Change_Username,
+      Component:ChnageUsername,
+    },
+    {
+      name: ScreenNameEnum.Privacy_Settings,
+      Component:PrivacySetting,
+    },
+    {
+      name: ScreenNameEnum.Termsconditions,
+      Component:TermCondition,
+    },
+    {
+      name: ScreenNameEnum.Privacypolicy,
+      Component:PrivacyPolicy,
+    },
+    {
+      name: ScreenNameEnum.FrequentlyQuestions,
+      Component:Frequntly,
+    },
+    {
+      name: ScreenNameEnum.NOTIFICATION,
+      Component:Notification,
+    },
+    {
+      name: ScreenNameEnum.SubscriptionOption,
+      Component:SubscriptionOption,
+    },
+    {
+      name: ScreenNameEnum.shareHackAplate,
+      Component:shareHackAplate,
+    },
+    {
+      name: ScreenNameEnum.RingtoneMenu,
+      Component:RingtoneMenu,
+    },
+    {
+      name: ScreenNameEnum.NotificationDetails,
+      Component:NotificationDetails,
+    },
+    {
+      name: ScreenNameEnum.ShareMessage,
+      Component:ShareMessage,
     },
    
     

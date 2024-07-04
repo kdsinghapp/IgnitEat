@@ -2,36 +2,146 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { image } from '../config/utils/images';
+import { withDecay } from 'react-native-reanimated';
+import { colors } from '../config/utils/colors';
+import RightIcon from '../assets/svg/right.svg';
+import { useNavigation } from '@react-navigation/native';
+import ScreenNameEnum from '../routes/screenName.enum';
 
 const CustomDrawerContent = (props) => {
+  const navigation = useNavigation()
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <TouchableOpacity style={styles.notificationButton}>
-          <Text style={styles.notificationIcon}>🔔</Text> {/* Replace with your icon */}
+        <View style={{width:'70%',alignItems:'center'}}>
+
+        <Image source={image.appLogo} style={{height:140,width:140,marginLeft:60}}  
+        
+        resizeMode='contain' />
+        </View>
+        <TouchableOpacity 
+          onPress={()=>{
+            navigation.navigate(ScreenNameEnum.NOTIFICATION)
+          }}
+        style={styles.notificationButton}>
+        <Image source={image.bell} style={styles.logo} />
         </TouchableOpacity>
       </View>
       <View style={styles.profileContainer}>
         <Text style={styles.credits}>Credits: 500</Text>
-        <View style={styles.profile}>
-          <Image source={require('../assets/profile.png')} style={styles.profileImage} />
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Profile)
+        }}
+        style={styles.profile}>
+          <Image source={image.dp} style={styles.profileImage} />
           <Text style={styles.profileName}>Zaire Vetrovs</Text>
-        </View>
+          
+        </TouchableOpacity>
       </View>
-      <View style={styles.divider} />
-      <DrawerItemList {...props} />
-      <View style={styles.divider} />
+      <View style={styles.aboutContainer}>
+     
+        <TouchableOpacity
+        onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Subscription)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.subscription} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Subscription</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Personal_preferences)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.Personal} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Personal preferences</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.aboutItem,]}>
+          <Image  source={image.changepass} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>create cookbook</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.RingtoneMenu)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.bell2} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Timer ringtone</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Change_Username)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.Username} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Change Username</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Change_Password)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.passord} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Change Password</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity 
+           onPress={()=>{
+            navigation.navigate(ScreenNameEnum.shareHackAplate)
+          }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.shareApp} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Share Hackaplate with friends</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Privacy_Settings)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.PrivacySettings} style={{height:35,width:35}} />
+          <Text style={styles.aboutText}>Privacy Settings</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+ 
+       
+      </View>
       <View style={styles.aboutContainer}>
         <Text style={styles.aboutHeader}>About</Text>
-        <TouchableOpacity style={styles.aboutItem}>
+    
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Termsconditions)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.term} style={{height:35,width:35}} />
           <Text style={styles.aboutText}>Terms And Conditions</Text>
+          <RightIcon height={30}  />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.aboutItem}>
+        <TouchableOpacity
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.Privacypolicy)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.term} style={{height:35,width:35}} />
           <Text style={styles.aboutText}>Privacy Policy</Text>
+          <RightIcon height={30}  />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.aboutItem}>
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.FrequentlyQuestions)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.term} style={{height:35,width:35}} />
           <Text style={styles.aboutText}>Frequently Asked Questions</Text>
+          <RightIcon height={30}  />
         </TouchableOpacity>
       </View>
     </DrawerContentScrollView>
@@ -40,15 +150,15 @@ const CustomDrawerContent = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop:0,
     backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    marginBottom: 20,
+    paddingHorizontal:0,
+ 
   },
   logo: {
     width: 100,
@@ -58,7 +168,7 @@ const styles = StyleSheet.create({
   notificationButton: {
     padding: 5,
     borderRadius: 15,
-    backgroundColor: '#004d00',
+   
   },
   notificationIcon: {
     color: '#fff',
@@ -86,7 +196,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color:colors.txtColor,
   },
   divider: {
     height: 1,
@@ -95,19 +205,26 @@ const styles = StyleSheet.create({
   },
   aboutContainer: {
     paddingHorizontal: 20,
+    marginTop:10
   },
   aboutHeader: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '800',
     color: '#333',
     marginBottom: 10,
   },
   aboutItem: {
-    paddingVertical: 10,
+  
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+marginVertical:7
   },
   aboutText: {
+    width:'65%',
     fontSize: 14,
-    color: '#666',
+    color:colors.txtColor,
+    fontWeight:'700'
   },
 });
 

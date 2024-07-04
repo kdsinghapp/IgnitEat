@@ -62,6 +62,23 @@ export const image={
    share2:require('../../assets/croping/share2.png'),
    G_list:require('../../assets/croping/groceryl.png'),
    Refresh:require('../../assets/croping/refresh.png'),
+   bell:require('../../assets/croping/bell2.png'),
+   bell2:require('../../assets/croping/bell.png'),
+   subscription:require('../../assets/croping/subscription-2.png'),
+
+   Personal:require('../../assets/croping/Personal.png'),
+   Username:require('../../assets/croping/Username-2.png'),
+
+   passord:require('../../assets/croping/ChangePassword.png'),
+   PrivacySettings:require('../../assets/croping/PrivacySettings-1.png'),
+   term:require('../../assets/croping/Termsandconditions.png'),
+   dp:require('../../assets/croping/dp.jpeg'),
+   gallery:require('../../assets/croping/Image2x.png'),
+
+   Faq:require('../../assets/croping/faq.png'),
+   PrivacyPolicy:require('../../assets/croping/PrivacyPolicy3x.png'),
+   termc:require('../../assets/croping/termc.png'),
+   Notification:require('../../assets/croping/noti.png'),
 
 
 

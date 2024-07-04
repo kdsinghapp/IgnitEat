@@ -54,7 +54,7 @@ export default function Login() {
             </TouchableOpacity>
             <TouchableOpacity 
              onPress={()=>{
-                navigation.navigate(ScreenNameEnum.BOTTOM_TAB)
+                navigation.navigate(ScreenNameEnum.MainDrawer)
             }}
             style={styles.loginButton}>
                 <Text style={styles.loginButtonText}>Login</Text>
