@@ -13,7 +13,7 @@ enum ScreenNameEnum {
   RecipeList = 'RecipeList',
   MealPlanPreferences = 'MealPlanPreferences',
   MealPlan = 'MealPlan',
-  createMealPlan = 'createMealPlan',
+  CreateMealPlan = 'CreateMealPlan',
   EditMeals = 'EditMeals',
   ViewmealPlaning = 'ViewmealPlaning',
   CookBookList = 'CookBookList',
@@ -34,7 +34,7 @@ enum ScreenNameEnum {
   FrequentlyQuestions = 'FrequentlyQuestions',
   NOTIFICATION ='NOTIFICATION',
   SubscriptionOption='SubscriptionOption',
-  shareHackAplate='shareHackAplate',
+  ShareHackAplate='ShareHackAplate',
   RingtoneMenu='RingtoneMenu',
   NotificationDetails='NotificationDetails',
   ShareMessage='ShareMessage'

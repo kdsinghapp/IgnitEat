@@ -10,7 +10,7 @@ import ShareRecipeModal from './ShareRecipeModal';
 
 const AddtoCookBook = ({ modalVisible, setModalVisible }) => {
     const [isRecipeModalVisible, setRecipeModalVisible] = useState(false);
-console.log(isRecipeModalVisible);
+
 
     const handleShare = async () => {
         try {

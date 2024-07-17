@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import Toast from 'react-native-toast-message';
-import { Size } from './Text';
-import { Text } from './Text';
+import Text from './Text';
+import Size from './Text';
 
 const toastConfig = {
   successResponse: ({text1}) => (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, Image, FlatList, Modal, Button } from 'react-native';
 import { image } from '../../config/utils/images';
 import { colors } from '../../config/utils/colors';
 import { marginTop } from '../../config/utils/utils';
@@ -18,7 +18,16 @@ const IngredientScreen = () => {
     const [ShareModal, setShareModal] = useState(false);
     const [TimeModalVisible, setTimeModalVisible] = useState(false);
     const [selectedTime, setSelectedTime] = useState(null);
+    const [ingredientList, setIngredientList] = useState([
+        { name: 'Ground Beef', amount: '1 lb', selected: false },
+        { name: 'Large Eggplants, Halved', amount: '2', selected: false },
+        { name: 'Tomatoes, Finely Chopped', amount: '2', selected: false },
+        { name: 'Onion, Diced', amount: '1', selected: false },
+        // Add more ingredients as needed
+    ]);
+    const [popupVisible, setPopupVisible] = useState(false); // State for popup visibility
 
+const [isEdit,setIsEdit] = useState(false)
     const [TabValiue, setTabValiue] = useState('Ingredients');
     const handleCloseModal = () => {
         setTimeModalVisible(false);
@@ -28,7 +37,26 @@ const IngredientScreen = () => {
         setSelectedTime(date);
         setTimeModalVisible(false);
     };
+    const toggleIngredientSelection = (index) => {
+        const updatedIngredients = [...ingredientList];
+        updatedIngredients[index].selected = !updatedIngredients[index].selected;
+        setIngredientList(updatedIngredients);
+    };
 
+    const handleReplacementSelection = (index) => {
+        const selectedCount = ingredientList.filter(item => item.selected).length;
+
+        // Check if three ingredients are selected
+        if (selectedCount === 2) {
+            setPopupVisible(true); // Show popup when three ingredients are selected
+        } else {
+            toggleIngredientSelection(index);
+        }
+    };
+
+    const handlePopupClose = () => {
+        setPopupVisible(false); // Close popup
+    };
     return (
         <View style={styles.screen}>
             <View style={styles.header}>
@@ -66,14 +94,26 @@ const IngredientScreen = () => {
 
                 {TabValiue === 'Ingredients' && (
                     <View style={styles.ingredientContainer}>
-                        <View style={styles.editIconContainer}>
+                        <TouchableOpacity
+                        onPress={()=>{
+                            setIsEdit(isEdit=>!isEdit)
+                        }}
+                        style={styles.editIconContainer}>
                             <Image style={styles.editIcon} source={image.CircleEdit} />
-                        </View>
+                        </TouchableOpacity>
                         {ingredientList.map((item, index) => (
-                            <View key={index} style={styles.ingredientRow}>
+                            <TouchableOpacity   key={index} style={styles.ingredientRow}>
                                 <Text style={styles.ingredientText}>{item.name}</Text>
-                                <Text style={styles.ingredientText}>{item.amount}</Text>
-                            </View>
+                                {!isEdit && <Text style={styles.ingredientText}>{item.amount}</Text> }
+                               {isEdit && <TouchableOpacity
+                            onPress={() => {
+                   handleReplacementSelection(index)
+                                toggleIngredientSelection(index)}}
+                            style={[styles.checkbox, { backgroundColor: item.selected ? colors.btnColor : '#FFFFFF' }]}
+                        >
+                            {item.selected && <Image source={image.check} style={styles.checkIcon} />}
+                        </TouchableOpacity>}
+                            </TouchableOpacity>
                         ))}
                     </View>
                 )}
@@ -153,6 +193,35 @@ const IngredientScreen = () => {
                     <Image source={image.share} style={styles.actionIcon} />
                 </TouchableOpacity>
             </View>
+          
+
+            <Modal
+            animationType="slide"
+            transparent={true}
+            visible={popupVisible}
+            onRequestClose={handlePopupClose}
+        >
+            <TouchableOpacity 
+            onPress={()=>{
+                handlePopupClose()
+            }}
+            style={styles.centeredView}>
+                <View style={styles.modalView}>
+
+
+                    <Text style={styles.text}>
+                      Up To 2 Ingredients Can Be Replaced
+
+                    </Text>
+
+
+
+                  
+
+
+                </View>
+            </TouchableOpacity>
+        </Modal>
             <TimePickerModal
                 isVisible={TimeModalVisible}
                 onClose={handleCloseModal}
@@ -181,23 +250,63 @@ const instruction = [
     },
 ]
 
-const ingredientList = [
-    { name: 'Ground Beef', amount: '1 lb' },
-    { name: 'Large Eggplants, Halved', amount: '2' },
-    { name: 'Lengthwise', amount: 'Few' },
-    { name: 'Tomatoes, Finely Chopped', amount: '2' },
-    { name: 'Onion, Diced', amount: '1' },
-    { name: 'Cloves Garlic, Minced', amount: '2' },
-    { name: 'Dried Thyme', amount: '1 Tsp' },
-    { name: 'Dried Rosemary', amount: '1 Tsp' },
-    { name: 'Salt And Pepper To Taste', amount: '' },
-    { name: 'Olive Oil For Cooking', amount: '200 ml' },
-    { name: 'Grated Parmesan', amount: '1 Cup' },
-    { name: 'Cheese', amount: '200 g' },
-    { name: 'Parsley For Garnish', amount: 'Few' },
-];
 
 const styles = StyleSheet.create({
+    button1: {
+        backgroundColor: colors.btnColor,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15,
+        marginLeft: 10, 
+        marginTop: 10,
+        width: '90%'
+    },
+    buttonText1: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    text: {
+        fontSize: 16,
+        lineHeight: 24,
+        fontWeight: '600',
+        color: colors.txtColor
+    },
+    modalView: {
+        width: '90%',
+   paddingVertical:20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 20,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    checkbox: {
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: colors.btnColor,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    checkIcon: {
+        width: 12,
+        height: 12,
+    },
     screen: {
         flex: 1,
         padding: 16,

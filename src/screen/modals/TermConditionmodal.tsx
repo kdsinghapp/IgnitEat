@@ -1,14 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../config/utils/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_terms_conditions } from '../../redux/feature/featuresSlice';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import WebView from 'react-native-webview';
+import Loading from '../../config/Loader';
 
-const TermsAndConditionsModal = ({ modalVisible, setModalVisible }) => {
+const TermsAndConditionsModal = ({ modalVisible, setModalVisible,readTermCon }) => {
 
-  const handleAccept = () => {
-    setModalVisible(false);
-    // Handle acceptance logic
-  };
 
+  const navigation = useNavigation()
+  const isFocuse = useIsFocused()
+  const dispatch = useDispatch()
+  const isLoading = useSelector(state => state.feature.isLoading);
+  const Term = useSelector(state => state.feature.TermsCondition);
+  useEffect(() => {
+    dispatch(get_terms_conditions())
+  }, [isFocuse])
+
+
+  
+  const generateHtmlContent = content => `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet">
+    <style>
+      body {
+        
+        font-size:30px;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    ${content}
+  </body>
+  </html>
+`;
+const handleAccept = () => {
+  readTermCon()
+  setModalVisible(false);
+  // Handle acceptance logic
+};
   return (
     <Modal
       animationType="slide"
@@ -19,25 +54,28 @@ const TermsAndConditionsModal = ({ modalVisible, setModalVisible }) => {
       }}
     >
       <View style={styles.centeredView}>
+        {isLoading?<Loading />:null}
         <View style={styles.modalView}>
           <Text style={styles.title}>Terms And Conditions</Text>
-          <ScrollView 
-          showsVerticalScrollIndicator={false}
-          style={styles.scrollView}>
-            <Text style={styles.text}>
-              Using our service/app requires accepting our terms and conditions. Please review them. Thank you.
-              {"\n\n"}
-              <Text style={styles.sectionTitle}>Acceptance of Terms</Text>
-              {"\n"}By accessing or using the Services, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not access or use the Services.
-              {"\n\n"}
-              <Text style={styles.sectionTitle}>Use of Services</Text>
-              {"\n"}You agree to use the Services only for lawful purposes and in accordance with these Terms. You may not use the Services in any manner that could damage, disable, overburden, or impair the Services or interfere with any other party's use of the Services.
-              {"\n\n"}
-              <Text style={styles.sectionTitle}>User Accounts</Text>
-              {"\n"}Some features of the Services may require you to create an account. You are responsible for maintaining the confidentiality of your account and password and for restricting access to your account. You agree to accept responsibility for all activities that occur under your account.
-              {/* Add more terms and conditions content here */}
-            </Text>
-          </ScrollView>
+          <View style={styles.section}>
+            {Term && Term?.content_description ? (
+              <WebView
+                source={{ html: generateHtmlContent(Term?.content_description) }}
+                style={{ flex: 1, }}
+                showsVerticalScrollIndicator={false}
+                onError={syntheticEvent => {
+                  const { nativeEvent } = syntheticEvent;
+                  console.warn('WebView error: ', nativeEvent);
+                }}
+                onHttpError={syntheticEvent => {
+                  const { nativeEvent } = syntheticEvent;
+                  console.warn('WebView HTTP error: ', nativeEvent);
+                }}
+              />
+            ) : (
+              <Text>No content available</Text>
+            )}
+          </View>
    
            
             <TouchableOpacity style={styles.button} onPress={handleAccept}>
@@ -51,6 +89,11 @@ const TermsAndConditionsModal = ({ modalVisible, setModalVisible }) => {
 };
 
 const styles = StyleSheet.create({
+  section: {
+    marginBottom: 20,
+    flex:1,
+    width: '100%',
+  },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -77,6 +120,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+    color:'#000'
   },
   scrollView: {
     width: '100%',

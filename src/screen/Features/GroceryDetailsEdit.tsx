@@ -29,7 +29,7 @@ const GroceryDetailsEdit = () => {
                     
                 >
                     <Image source={image.G_list} style={styles.addButtonImage} />
-                    <Text style={[styles.buttonText, styles.addButtonText]}>
+                    <Text style={[styles.buttonText]}>
                     grocery list name 41
                     </Text>
                     <View>
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         fontWeight: '600',
         width: '63%',
+    
     },
     editIconContainer: {
         alignSelf: 'center',

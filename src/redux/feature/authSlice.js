@@ -11,7 +11,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  userData: null,
+  User: null,
   isLogin: false,
   isLogOut: false,
 };
@@ -20,8 +20,8 @@ export const login = createAsyncThunk('login', async (params, thunkApi) => {
   try {
     // Create form data with identity and otp
     const formData = new FormData();
-    formData.append('driver_identity', params.data.useres_identity);
-    formData.append('driver_password', params.data.useres_password);
+    formData.append('email', params.data.email);
+    formData.append('password', params.data.password);
 
     // Configure request headers
     const myHeaders = new Headers();
@@ -37,34 +37,27 @@ export const login = createAsyncThunk('login', async (params, thunkApi) => {
 
     // Make POST request to verify OTP
     const response = await fetch(
-      'https://server-php-8-3.technorizen.com/loveeat/api/driver/auth/login',
+      'https://server-php-8-3.technorizen.com/igniteat/api/user/auth/login',
       requestOptions,
     );
 
     // Parse response as JSON
     const responseData = await response.json();
 
-    console.log('Response login :', responseData.data);
+    console.log('Response login :', responseData.data.email);
 
     // Handle successful response
-    if (responseData.success) {
+    if (responseData.status == '1') {
       successToast(responseData.message);
       thunkApi.dispatch(loginSuccess(responseData.data));
-      // Assuming ScreenNameEnum.CREATE_PASSWORD is imported properly
-
-      const restaurantRegister = responseData.data.driver_deatils;
-
-      if (restaurantRegister) {
-        params.navigation.navigate(ScreenNameEnum.BOTTOM_TAB);
-      } else {
-        params.navigation.navigate(ScreenNameEnum.VIHICLE_DETAILS);
-      }
+      params.navigation.navigate(ScreenNameEnum.MainDrawer);
     } else {
       errorToast(responseData.message);
     }
 
     // Return response data
-    return responseData.data;
+    
+    return { ...responseData.data,token:responseData.token}
   } catch (error) {
     console.error('Error:', error);
     errorToast('Network error');
@@ -72,161 +65,7 @@ export const login = createAsyncThunk('login', async (params, thunkApi) => {
     throw error;
   }
 });
-export const sendOtpRestPass = createAsyncThunk(
-  'auth/sendOtpRestPass',
-  async (params, thunkApi) => {
-    try {
-      console.log('==================params ==================');
-      console.log(params.data);
-      console.log('====================================');
 
-      const formData = new FormData();
-      formData.append('identity', params.data.identity);
-
-      console.log('FormData:', formData);
-
-      const response = await API.post(
-        '/driver/auth/password-reset',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Accept: 'application/json', // Add Accept header for JSON
-          },
-        },
-      );
-
-      console.log('Response:', response);
-
-      if (response.data.success) {
-        successToast('OTP Sent Successfully');
-        params.navigation.navigate(ScreenNameEnum.OTP_SCREEN, {
-          identity: params.data.identity,
-        });
-      } else {
-        errorToast(response.data.message);
-      }
-
-      return response.data;
-    } catch (error) {
-      console.log('Error:', error);
-      if (error.response) {
-        console.log('Error Response:', error.response);
-        errorToast(error.response.data.message || 'Network Error');
-      } else if (error.request) {
-        console.log('Error Request:', error.request);
-        errorToast('Network Error');
-      } else {
-        console.log('General Error:', error.message);
-        errorToast(error.message);
-      }
-      return thunkApi.rejectWithValue(error.message);
-    }
-  },
-);
-export const validOtp = createAsyncThunk(
-  'auth/validOtp',
-  async (params, thunkApi) => {
-    try {
-      // Create form data with identity and otp
-      const formData = new FormData();
-      formData.append('identity', params.data.identity);
-      formData.append('otp', params.data.otp);
-
-      // Configure request headers
-      const myHeaders = new Headers();
-      myHeaders.append('Accept', 'application/json');
-
-      // Create request options
-      const requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formData,
-        redirect: 'follow',
-      };
-
-      // Make POST request to verify OTP
-      const response = await fetch(
-        'https://server-php-8-3.technorizen.com/loveeat/api/driver/auth/verify-otp',
-        requestOptions,
-      );
-
-      // Parse response as JSON
-      const responseData = await response.json();
-
-      console.log('Response:', responseData);
-
-      // Handle successful response
-      if (responseData.status == '1') {
-        successToast(responseData.message);
-        // Assuming ScreenNameEnum.CREATE_PASSWORD is imported properly
-        params.navigation.navigate(ScreenNameEnum.CREATE_PASSWORD,{identity:params.data});
-      } else {
-        errorToast(responseData.message);
-      }
-
-      // Return response data
-      return responseData.data;
-    } catch (error) {
-      console.error('Error:', error);
-      errorToast('Network error');
-      // Reject with error
-      throw error;
-    }
-  },
-); 
-export const CreateNewPassword = createAsyncThunk(
-  'create-new-password-without-login',
-  async (params, thunkApi) => {
-    const {identity, password, otp} = params.data;
-   
-    try {
-      const myHeaders = new Headers();
-      myHeaders.append('Accept', 'application/json');
-
-      const formdata = new FormData();
-      formdata.append('password', password);
-      formdata.append('c_password', password);
-      formdata.append('identity', identity);
-      formdata.append('otp', otp);
-
-      const requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow',
-      };
-
-      const response = fetch(
-        'https://server-php-8-3.technorizen.com/loveeat/api/driver/auth/create-new-password-without-login',
-        requestOptions,
-      )
-        .then(response => response.text())
-        .then(result => {
-          const response = JSON.parse(result);
-          console.log(response);
-          if (response.success) {
-            params.navigation.navigate(ScreenNameEnum.LOGIN_SCREEN);
-            successToast('Password updated successfully');
-            return response;
-          } else {
-            errorToast(response.message);
-            params.navigation.navigate(ScreenNameEnum.PASSWORD_RESET);
-            return response;
-          }
-        })
-        .catch(error => console.error(error));
-
-      return response;
-    } catch (error) {
-      console.log('Error:', error);
-
-      errorToast('Network Error');
-
-      return thunkApi.rejectWithValue(error);
-    }
-  },
-);
 export const register = createAsyncThunk(
   'register',
   async (params, thunkApi) => {
@@ -236,17 +75,12 @@ export const register = createAsyncThunk(
       myHeaders.append("Accept", "application/json");
 
       const formdata = new FormData();
-      formdata.append('driver_full_name', params.driver_full_name);
-      formdata.append('driver_email', params.driver_email);
-      formdata.append('driver_mobile_number', params.driver_mobile_number);
-      formdata.append('driver_password', params.driver_password);
-      formdata.append('driver_c_password', params.driver_c_password);
-      formdata.append('driver_country_code', params.driver_country_code);
-      formdata.append('driver_address_1', params.driver_address_1);
-      formdata.append('driver_address_2', params.driver_address_2);
-      formdata.append('driver_city', params.driver_city);
-      formdata.append('driver_lat', params.driver_lat);
-      formdata.append('driver_long', params.driver_long);
+      formdata.append('email', params.data.email);
+      formdata.append('password', params.data.password);
+      formdata.append('confirm_password', params.data.confirm_password);
+      formdata.append('first_name', params.data.first_name);
+      formdata.append('last_name', params.data.last_name);
+      
       const requestOptions = {
         method: "POST",
         headers: myHeaders,
@@ -254,12 +88,12 @@ export const register = createAsyncThunk(
         redirect: "follow"
       };
 
-      const response = fetch(base_url.url + "/driver/auth/signup", requestOptions)
+      const response = fetch(base_url.url + "/user/auth/register", requestOptions)
         .then((response) => response.text())
         .then((res) => {
           const response = JSON.parse(res)
           console.log(response);
-          if (response.success) {
+          if (response.status == '1') {
             params.navigation.navigate(ScreenNameEnum.LOGIN_SCREEN);
             successToast(
               'User Registered Successfully'
@@ -291,6 +125,110 @@ export const register = createAsyncThunk(
     }
   },
 );
+export const send_password = createAsyncThunk(
+  'auth/sendOtpRestPass',
+  async (params, thunkApi) => {
+    try {
+      console.log('==================params ==================');
+      console.log(params.data);
+      console.log('====================================');
+
+      const formData = new FormData();
+      formData.append('email', params.data.email);
+
+      console.log('FormData:', formData);
+
+      const response = await API.post(
+        'user/auth/forgot-password',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Accept: 'application/json', // Add Accept header for JSON
+          },
+        },
+      );
+
+      console.log('Response:', response);
+
+      if (response.data.status == '1') {
+        successToast(response.data.message);
+        params.navigation.navigate(ScreenNameEnum.LOGIN_SCREEN,);
+      } else {
+        errorToast(response.data.message);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.log('Error:', error);
+      if (error.response) {
+        console.log('Error Response:', error.response);
+        errorToast(error.response.data.message || 'Network Error');
+      } else if (error.request) {
+        console.log('Error Request:', error.request);
+        errorToast('Network Error');
+      } else {
+        console.log('General Error:', error.message);
+        errorToast(error.message);
+      }
+      return thunkApi.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const change_password = createAsyncThunk(
+  'change-password',
+  async (params, thunkApi) => {
+    const {identity, password, otp} = params.data;
+   
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append('Accept', 'application/json');
+
+      const formdata = new FormData();
+      formdata.append('email',params.email);
+      formdata.append('old_password', params.old_password);
+      formdata.append('password', params.password);
+      formdata.append('confirm_password', params.confirm_password);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow',
+      };
+
+      const response = fetch(
+        base_url+`user/auth/change-password`,
+        requestOptions,
+      )
+        .then(response => response.text())
+        .then(result => {
+          const response = JSON.parse(result);
+      
+          if (response.success) {
+       
+            successToast('Password updated successfully');
+            return response;
+          } else {
+            errorToast(response.message);
+       
+            return response;
+          }
+        })
+        .catch(error => console.error(error));
+
+      return response;
+    } catch (error) {
+      console.log('Error:', error);
+
+      errorToast('Network Error');
+
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+
 
 export const logout = createAsyncThunk('logout', async (params, thunkApi) => {
   try {
@@ -331,7 +269,7 @@ const AuthSlice = createSlice({
       state.isError = false;
       state.isLogin = true;
       state.isLogOut = false;
-      state.userData = action.payload;
+      state.User = action.payload;
     },
   },
   extraReducers: builder => {
@@ -381,36 +319,26 @@ const AuthSlice = createSlice({
       state.isSuccess = false;
       state.isLogin = true;
     });
-    builder.addCase(sendOtpRestPass.pending, state => {
+    builder.addCase(send_password.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(sendOtpRestPass.fulfilled, (state, action) => {
+    builder.addCase(send_password.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(sendOtpRestPass.rejected, (state, action) => {
+    builder.addCase(send_password.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
     });
-    builder.addCase(validOtp.pending, state => {
+   
+    builder.addCase(change_password.pending, state => {
       state.isLoading = true;
     });
-    builder.addCase(validOtp.fulfilled, (state, action) => {
+    builder.addCase(change_password.fulfilled, (state, action) => {
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(validOtp.rejected, (state, action) => {
-      state.isLoading = false;
-      state.isError = true;
-    });
-    builder.addCase(CreateNewPassword.pending, state => {
-      state.isLoading = true;
-    });
-    builder.addCase(CreateNewPassword.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.isError = false;
-    });
-    builder.addCase(CreateNewPassword.rejected, (state, action) => {
+    builder.addCase(change_password.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
     });

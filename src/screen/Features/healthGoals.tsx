@@ -105,7 +105,7 @@ const MealPlanPreferences = () => {
 </View>
             <TouchableOpacity
             onPress={()=>{
-                navigation.navigate(ScreenNameEnum.createMealPlan)
+                navigation.navigate(ScreenNameEnum.CreateMealPlan)
             }}
             style={styles.nextButton}>
                 <Text style={styles.nextButtonText}>Next</Text>

@@ -94,7 +94,7 @@ const CustomDrawerContent = (props) => {
         </TouchableOpacity>
         <TouchableOpacity 
            onPress={()=>{
-            navigation.navigate(ScreenNameEnum.shareHackAplate)
+            navigation.navigate(ScreenNameEnum.ShareHackAplate)
           }}
         style={[styles.aboutItem,]}>
           <Image  source={image.shareApp} style={{height:35,width:35}} />
@@ -110,8 +110,7 @@ const CustomDrawerContent = (props) => {
           <Text style={styles.aboutText}>Privacy Settings</Text>
           <RightIcon height={30}  />
         </TouchableOpacity>
- 
-       
+    
       </View>
       <View style={styles.aboutContainer}>
         <Text style={styles.aboutHeader}>About</Text>
@@ -143,6 +142,16 @@ const CustomDrawerContent = (props) => {
           <Text style={styles.aboutText}>Frequently Asked Questions</Text>
           <RightIcon height={30}  />
         </TouchableOpacity>
+        <TouchableOpacity 
+         onPress={()=>{
+          navigation.navigate(ScreenNameEnum.LOGIN_SCREEN)
+        }}
+        style={[styles.aboutItem,]}>
+          <Image  source={image.Username} style={{height:35,width:35}} />
+          <Text style={[styles.aboutText,{color:'red'}]}>Log Out</Text>
+          <RightIcon height={30}  />
+        </TouchableOpacity>
+        <View  style={{height:60}}/>
       </View>
     </DrawerContentScrollView>
   );

@@ -2,13 +2,17 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../config/utils/colors';
+import ScreenNameEnum from '../../routes/screenName.enum';
+import { useNavigation } from '@react-navigation/native';
 
 const CreateRecipe = ({ modalVisible, setModalVisible }) => {
 
     const handleAccept = () => {
         setModalVisible(false);
-        // Handle acceptance logic
+        navigation.navigate(ScreenNameEnum.IngredientScreen)
     };
+
+    const navigation = useNavigation()
 
     return (
         <Modal
@@ -30,7 +34,10 @@ const CreateRecipe = ({ modalVisible, setModalVisible }) => {
 
 
 
-                    <TouchableOpacity style={[styles.button, { marginTop: 20 }]} onPress={handleAccept}>
+                    <TouchableOpacity 
+                    
+                  
+                    style={[styles.button, { marginTop: 20 }]} onPress={handleAccept}>
                         <Text style={styles.buttonText}>Yes</Text>
                     </TouchableOpacity>
 

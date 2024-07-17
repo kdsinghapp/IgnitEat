@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 16,
         fontWeight: '600',
+        color:colors.txtColor
     },
     ingredientContainer: {
         backgroundColor: '#F9F9F9',

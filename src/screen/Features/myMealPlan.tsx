@@ -14,7 +14,7 @@ import ScreenNameEnum from '../../routes/screenName.enum';
 import AddtoCookBook from '../modals/AddtoCookBook';
    
     
-    const myMealPlan = () => {
+    const MyMealPlan = () => {
         const [OpenRecipeModal, setOpenRecipeModal] = useState(false);
         const [OpenGroceryModal, setOpenGroceryModal] = useState(false);
         const [OpenCookBookModal, setOpenCookBookModal] = useState(false);
@@ -133,7 +133,7 @@ import AddtoCookBook from '../modals/AddtoCookBook';
       headingText: {
             fontSize: 20,
             fontWeight: 'bold',
-            color: colors.primary,
+            color: '#000',
         },
         headerIcons: {
             flexDirection: 'row',
@@ -149,7 +149,7 @@ import AddtoCookBook from '../modals/AddtoCookBook';
         dayContainer: {
             marginBottom: 16,
             padding: 16,
-            backgroundColor: '#f9f9f9',
+            backgroundColor: '#f0f0f0',
             borderRadius: 8,
         },
         dayHeader: {
@@ -161,7 +161,7 @@ import AddtoCookBook from '../modals/AddtoCookBook';
         dayText: {
             fontSize: 18,
             fontWeight: 'bold',
-            color: colors.primary,
+            color:'#000',
         },
         editIcon: {
             width: 16,
@@ -181,11 +181,11 @@ import AddtoCookBook from '../modals/AddtoCookBook';
         },
         mealText: {
             fontSize: 14,
-            color: colors.primary,
+            color: '#000',
         },
     });
     
-    export default myMealPlan;
+    export default MyMealPlan;
     const mealData = [
         {
             day: 'Day 1',

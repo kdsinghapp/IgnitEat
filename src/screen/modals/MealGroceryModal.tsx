@@ -11,7 +11,7 @@ import ShareRecipeModal from './ShareRecipeModal';
 
 const MealGroceryModal = ({ modalVisible, setModalVisible }) => {
     const [isRecipeModalVisible, setRecipeModalVisible] = useState(false);
-console.log(isRecipeModalVisible);
+
 
     const handleShare = async () => {
         try {

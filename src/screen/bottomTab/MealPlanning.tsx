@@ -408,7 +408,8 @@ elevation: 5,
     sliderLabel: {
       fontSize: 16,
       marginBottom: 8,
-      fontWeight: '700'
+      fontWeight: '700',
+      color:'#000'
     },
     slider: {
       width: '100%',

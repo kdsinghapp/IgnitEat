@@ -1,7 +1,7 @@
 
 import TabNavigator from "../navigators/TabNavigator";
 import IngredientScreen from "../screen/Features/IngredientScreen";
-import MealPlan from "../screen/Features/craeteMealPlan";
+import MealPlan from "../screen/Features/CreateMealPlan";
 import RecipeList from "../screen/Features/Recipebook";
 import MealPlanPreferences from "../screen/Features/healthGoals";
 import SplashScreen from "../screen/Wellcome/SplashScreen";
@@ -11,8 +11,8 @@ import PasswordReset from "../screen/auth/PasswordReset";
 import SignUp from "../screen/auth/SignUp";
 import forgotPassword from "../screen/auth/forgotPassword";
 import ScreenNameEnum from "./screenName.enum";
-import createMealPlan from "../screen/Features/craeteMealPlan";
-import myMealPlan from "../screen/Features/myMealPlan";
+import CreateMealPlan from "../screen/Features/CreateMealPlan";
+import MyMealPlan from "../screen/Features/MyMealPlan";
 import EditMeals from "../screen/Features/EditMeals";
 import ViewmealPlaning from "../screen/Features/ViewmealPlaning";
 import CookBookList from "../screen/Features/CookBookList";
@@ -32,10 +32,10 @@ import PrivacyPolicy from "../screen/Drawer/PrivacyPolicy";
 import Frequntly from "../screen/Drawer/Frequntly";
 import Notification from "../screen/Drawer/Notification";
 import SubscriptionOption from "../screen/Drawer/SubscriptionOption";
-import shareHackAplate from "../screen/Drawer/shareHackAplate";
 import RingtoneMenu from "../screen/Drawer/RingtonMenu";
 import NotificationDetails from "../screen/Drawer/NotificationDetails";
 import ShareMessage from "../screen/Drawer/Sharemessage";
+import ShareHackAplate from "../screen/Drawer/ShareHackAplate";
 
 
 const _routes = {
@@ -82,11 +82,11 @@ const _routes = {
     },
     {
       name: ScreenNameEnum.MealPlan,
-      Component:myMealPlan,
+      Component:MyMealPlan,
     },
     {
-      name: ScreenNameEnum.createMealPlan,
-      Component:createMealPlan,
+      name: ScreenNameEnum.CreateMealPlan,
+      Component:CreateMealPlan,
     },
    
     {
@@ -166,8 +166,8 @@ const _routes = {
       Component:SubscriptionOption,
     },
     {
-      name: ScreenNameEnum.shareHackAplate,
-      Component:shareHackAplate,
+      name: ScreenNameEnum.ShareHackAplate,
+      Component:ShareHackAplate,
     },
     {
       name: ScreenNameEnum.RingtoneMenu,

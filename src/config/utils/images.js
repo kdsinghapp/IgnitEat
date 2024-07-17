@@ -80,6 +80,9 @@ export const image={
    termc:require('../../assets/croping/termc.png'),
    Notification:require('../../assets/croping/noti.png'),
 
+   hide:require('../../assets/croping/eye.png'),
+   err404:require('../../assets/croping/404.png'),
+
 
 
    

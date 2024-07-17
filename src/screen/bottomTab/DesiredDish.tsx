@@ -79,9 +79,13 @@ export default function DesiredDish() {
                 }}
               />
             ) : (
+              <TouchableOpacity onPress={()=>{
+                toggleEdit()
+              }}>
               <Text style={styles.avoidIngredientsText}>
                 {recipe ==''?'Enter the name of the dish recipe':recipe}
               </Text>
+              </TouchableOpacity>
             )}
 
             <View style={{
@@ -133,8 +137,8 @@ export default function DesiredDish() {
 
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Diners</Text>
-            <Text style={{ fontSize: 12, color: "#777777" }}>Set number of diners</Text>
-            <Text>{diners}</Text>
+            <Text style={{ fontSize: 12, color: "#000" }}>Set number of diners</Text>
+            <Text style={{color:'#000'}}>{diners}</Text>
             <Slider
               minimumValue={1}
               maximumValue={10}
@@ -153,7 +157,7 @@ export default function DesiredDish() {
 
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Time</Text>
-            <Text style={{ fontSize: 12, color: "#777777" }}>Set your cooking time to fit your schedule</Text>
+            <Text style={{ fontSize: 12, color: "#000" }}>Set your cooking time to fit your schedule</Text>
             <Text>{diners}</Text>
             <Slider
               minimumValue={1}
@@ -173,7 +177,7 @@ export default function DesiredDish() {
 
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Level</Text>
-            <Text style={{ fontSize: 12, color: "#777777" }}>Define the level of details provided in the recipe instruction</Text>
+            <Text style={{ fontSize: 12, color: "#000" }}>Define the level of details provided in the recipe instruction</Text>
             <Text>{['Beginner', 'Home Cooker', 'Chef'][level]}</Text>
             <Slider
               minimumValue={1}
@@ -194,7 +198,7 @@ export default function DesiredDish() {
 
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Mood</Text>
-            <Text style={{ fontSize: 12, color: "#777777" }}>Define the creativity level of the recipe</Text>
+            <Text style={{ fontSize: 12, color: "#000" }}>Define the creativity level of the recipe</Text>
             <Text>{['Classic', 'Gourmet', 'Artisan'][mood]}</Text>
             <Slider
               minimumValue={1}
@@ -331,7 +335,8 @@ const styles = StyleSheet.create({
   sliderLabel: {
     fontSize: 16,
     marginBottom: 8,
-    fontWeight: '700'
+    fontWeight: '700',
+    color:'#000'
   },
   slider: {
     width: '100%',

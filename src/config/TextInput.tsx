@@ -8,6 +8,9 @@ export default function TextInputField({ ...props }) {
   const [text, setText] = useState('');
   const [showPassword, setShowPassword] = useState(props.hide);
 
+
+
+  
   const PasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -18,6 +21,8 @@ export default function TextInputField({ ...props }) {
     }
   };
 
+
+  
   return (
     <View style={styles.inputContainer}>
       <View style={styles.inputWrapper}>
@@ -33,7 +38,7 @@ export default function TextInputField({ ...props }) {
             </Text>
           </TouchableOpacity>
         )}
-        <View style={[styles.textInputWrapper, { width: props.showEye ? '70%' : props.County ? '75%' : '90%' }]}>
+        <View style={[styles.textInputWrapper, { width: props.showEye ? '87%' : props.County ? '75%' : '90%' }]}>
           <TextInput
             placeholderTextColor={colors.placeHolder}
             style={styles.textInput}
@@ -47,14 +52,10 @@ export default function TextInputField({ ...props }) {
         </View>
         {props.showEye && (
           <TouchableOpacity onPress={PasswordVisibility} style={styles.eyeIconContainer}>
-            <Image source={image.Lock} style={styles.eyeIcon} />
+            <Image source={showPassword?image.hide:image.eye} style={styles.eyeIcon} />
           </TouchableOpacity>
         )}
-        {props.lastIcon && (
-          <TouchableOpacity style={styles.lastIconContainer}>
-            <Image source={props.lastIcon} style={styles.lastIcon} />
-          </TouchableOpacity>
-        )}
+       
       </View>
     </View>
   );
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
     width: 42,
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   eyeIcon: {
     width: 24,

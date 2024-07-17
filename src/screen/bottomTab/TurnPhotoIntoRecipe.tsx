@@ -90,7 +90,7 @@ alignSelf:'center',position:'absolute'}}>
               navigation.navigate(ScreenNameEnum.IngredientScreen)
             }}
             style={styles.avoidButton}>
-            <Text style={styles.avoidButtonText}> Upload an image of the dish and optionally add any details or description (e.g., key ingredients, dish name) to help us generate a more accurate recipe.</Text>
+            <Text style={styles.avoidButtonText}>Upload an image of the dish and optionally add any details or description (e.g., key ingredients, dish name) to help us generate a more accurate recipe.</Text>
 
           </TouchableOpacity>
 
@@ -291,7 +291,8 @@ const styles = StyleSheet.create({
   sliderLabel: {
     fontSize: 16,
     marginBottom: 8,
-    fontWeight: '700'
+    fontWeight: '700',
+    color:'#000'
   },
   slider: {
     width: '100%',

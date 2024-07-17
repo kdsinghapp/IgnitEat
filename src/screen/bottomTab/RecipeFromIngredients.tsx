@@ -59,12 +59,12 @@ import SubscribePrime from '../modals/SubscribePrime';
       </View>
     );
     const ExpandableSection = ({ title, content, expanded, onPress }) => (
-      <View>
+      <View style={{      backgroundColor: '#C8DBCE',borderRadius:15,marginVertical:10}}>
           <TouchableOpacity onPress={onPress} style={styles.expandableHeader}>
               <Text style={{color:colors.btnColor,fontWeight:'600'}}>{title}</Text>
               <Downgreen />
           </TouchableOpacity>
-          {expanded && <View style={styles.expandableContent}><Text>{content}</Text></View>}
+          {expanded && <View style={styles.expandableContent}><Text style={{color:'#000'}}>{content}</Text></View>}
       </View>
   );
     return (
@@ -93,7 +93,8 @@ import SubscribePrime from '../modals/SubscribePrime';
           alignItems:'center',justifyContent:'space-between'}}>
        <TextInput  
        placeholder='My Ingredients-'
-       style={{width:'70%'}}
+       placeholderTextColor={'#777777'}
+       style={{width:'70%',color:'#000'}}
        />
         <View style={styles.iconContainer}>
           <TouchableOpacity style={styles.iconButton}>
@@ -330,8 +331,8 @@ elevation: 5,
     },
     expandableContent: {
       padding: 10,
-      backgroundColor: '#F5F5F5',
-      borderRadius: 10,
+    
+     
       marginBottom: 8,
     },
     container: {
@@ -429,7 +430,8 @@ elevation: 5,
     sliderLabel: {
       fontSize: 16,
       marginBottom: 8,
-      fontWeight: '700'
+      fontWeight: '700',
+      color:'#000'
     },
     slider: {
       width: '100%',

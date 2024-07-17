@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import TextInputField from '../../config/TextInput';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -6,13 +6,59 @@ import { image } from '../../config/utils/images';
 import { colors, marginTop } from '../../config/utils/utils';
 import { useNavigation } from '@react-navigation/native';
 import ScreenNameEnum from '../../routes/screenName.enum';
+import { errorToast } from '../../config/customToast';
+import { useDispatch, useSelector } from 'react-redux';
+import { send_password } from '../../redux/feature/authSlice';
+import Loading from '../../config/Loader';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('');
   const navigation = useNavigation();
+    
+    const dispatch = useDispatch()
+    const isLoading = useSelector(state => state.auth.isLoading);
+    const validateEmail = (email) => {
+        // Regular expression for basic email validation
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        return regex.test(email);
+    };
+    const send_email_password = () => {
+        if (!email) {
+
+            errorToast('Please fill in all required fields');
+            return;
+        }
+
+
+
+        if (!validateEmail(email)) {
+
+            errorToast('Please enter a valid email address.');
+            return;
+        }
+
+        const params = {
+            data: {
+
+                email: email,
+                
+
+
+            },
+            navigation: navigation
+        }
+
+        dispatch(send_password(params))
+
+
+    };
+
+  
   return (
     <View style={styles.container}>
+      {isLoading?<Loading />:null}
+      <ScrollView>
       <TouchableOpacity
         style={styles.goBackButton}
         onPress={() => {
@@ -39,7 +85,7 @@ export default function ForgotPassword() {
           <View>
             <Text style={styles.tabInputLabel}>Email</Text>
           </View>
-          <View>
+          <View style={{}}> 
             <TextInput
               style={styles.tabInputField}
               placeholder="Enter email"
@@ -53,15 +99,17 @@ export default function ForgotPassword() {
       <View style={styles.imageContainer}>
         <Image source={image.lp} resizeMode="contain" style={styles.image} />
       </View>
+<View   style={{height:hp(22)}} />
 
       <TouchableOpacity
         onPress={() => {
-        navigation.navigate(ScreenNameEnum.OTP_SCREEN)
+        send_email_password()
         }}
         style={styles.submitButton}
       >
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
@@ -132,7 +180,7 @@ const styles = StyleSheet.create({
   tabInputContainer: {
     width: '60%',
     marginLeft: 30,
-    height: 43,
+ 
   },
   tabInputLabel: {
     fontSize: 16,
@@ -142,7 +190,7 @@ const styles = StyleSheet.create({
   },
   tabInputField: {
     fontSize: 14,
-    lineHeight: 19.09,
+
     fontWeight: '400',
     color: '#000',
     marginTop: 10,
@@ -161,8 +209,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 60,
     borderRadius: 10,
-    position: 'absolute',
-    bottom: 20,
+
+ bottom:20,
     width: '90%',
     alignSelf: 'center',
     justifyContent: 'center',

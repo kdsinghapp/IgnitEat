@@ -32,7 +32,7 @@ const nutritionalFocuses = [
     { id: '6', title: 'Low sugar' },
 ];
 
-const createMealPlan = () => {
+const CreateMealPlan = () => {
     const [selectedGoals, setSelectedGoals] = useState([]);
     const [selectedActivity, setSelectedActivity] = useState([]);
     const [selectedFocuses, setSelectedFocuses] = useState([]);
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default createMealPlan;
+export default CreateMealPlan;

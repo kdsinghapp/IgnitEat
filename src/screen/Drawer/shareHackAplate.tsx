@@ -7,7 +7,7 @@ import { colors, marginTop } from '../../config/utils/utils';
 import { useNavigation } from '@react-navigation/native';
 import ScreenNameEnum from '../../routes/screenName.enum';
 
-const shareHackAplate = () => {
+const ShareHackAplate = () => {
     const navigation = useNavigation()
   return (
     <View style={styles.container}>
@@ -152,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default shareHackAplate;
+export default ShareHackAplate;

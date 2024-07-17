@@ -1,72 +1,116 @@
 import { View, Text, Image, Platform, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import TextInputField from '../../config/TextInput'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { image } from '../../config/utils/images';
 import { colors, marginTop } from '../../config/utils/utils';
 import { useNavigation } from '@react-navigation/native';
 import ScreenNameEnum from '../../routes/screenName.enum';
+import { errorToast } from '../../config/customToast';
+import { login } from '../../redux/feature/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../config/Loader';
+import InternetConnectionCheck from '../../config/ConnectionCheck';
 
 export default function Login() {
     const navigation = useNavigation()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch()
+    const isLoading = useSelector(state => state.auth.isLoading);
+    const validateEmail = (email) => {
+        // Regular expression for basic email validation
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        return regex.test(email);
+    };
+    const handleLogin = () => {
+        if (!email || !password) {
+
+            errorToast('Please fill in all required fields');
+            return;
+        }
+
+
+
+        if (!validateEmail(email)) {
+
+            errorToast('Please enter a valid email address.');
+            return;
+        }
+
+        const params = {
+            data: {
+
+                email: email,
+                password: password,
+
+
+            },
+            navigation: navigation
+        }
+
+        dispatch(login(params))
+
+
+    };
     return (
         <View style={styles.container}>
+            {isLoading ? <Loading /> : null}
+           
             <View style={styles.logoContainer}>
                 <Image
                     resizeMode='contain'
-                    source={image.appLogo} 
-                    style={styles.logo} 
+                    source={image.appLogo}
+                    style={styles.logo}
                 />
             </View>
             <View style={styles.headerContainer}>
                 <Text style={styles.loginText}>Login</Text>
                 <Text style={styles.subText}>Enter your email and password</Text>
             </View>
-            <View style={styles.inputContainer}>
-                <Image
-                    resizeMode='contain'
-                    source={image.email} 
-                    style={styles.icon} 
+            <View style={[styles.inputContainer, { marginTop: 50, }]}>
+                <Image resizeMode='contain' source={image.email} style={styles.icon} />
+                <TextInputField
+                    placeholder={'Email Address'}
+                    value={email}
+                    onChangeText={setEmail}
                 />
-                <TextInputField placeholder={'Email Address'} />
             </View>
-            <View style={[styles.inputContainer, { marginTop: 10,paddingRight:20 }]}>
-                <Image
-                    resizeMode='contain'
-                    source={image.Lock} 
-                    style={styles.icon} 
+            <View style={[styles.inputContainer, { marginTop: 10, paddingRight: 20 }]}>
+                <Image resizeMode='contain' source={image.Lock} style={styles.icon} />
+                <TextInputField
+                    placeholder={'Password'}
+                    hide={true}
+                    value={password}
+                    onChangeText={setPassword}
+                    showEye={true}
                 />
-                <TextInputField placeholder={'Password'} />
-                <TouchableOpacity>
-                    <Image
-                        resizeMode='contain'
-                        source={image.eye} 
-                        style={styles.icon} 
-                    />
-                </TouchableOpacity>
+
             </View>
             <TouchableOpacity
-            onPress={()=>{
-                navigation.navigate(ScreenNameEnum.FORGOT_PASSWORD)
-            }}
-            style={styles.forgotPasswordButton}>
+                onPress={() => {
+                    navigation.navigate(ScreenNameEnum.FORGOT_PASSWORD)
+                }}
+                style={styles.forgotPasswordButton}>
                 <Text style={styles.forgotPasswordText}>Forgot your password</Text>
             </TouchableOpacity>
-            <TouchableOpacity 
-             onPress={()=>{
-                navigation.navigate(ScreenNameEnum.MainDrawer)
-            }}
-            style={styles.loginButton}>
+            <TouchableOpacity
+                onPress={() => {
+
+                    handleLogin()
+                }}
+                style={styles.loginButton}>
                 <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
             <View style={styles.signupContainer}>
                 <Text style={styles.signupText}>Don't have an account?</Text>
-                <TouchableOpacity 
-                
-                onPress={()=>{
-                    navigation.navigate(ScreenNameEnum.SIGNUP_SCREEN)
-                }}
-                style={styles.signupButton}>
+                <TouchableOpacity
+
+                    onPress={() => {
+                        navigation.navigate(ScreenNameEnum.SIGNUP_SCREEN)
+                    }}
+                    style={styles.signupButton}>
                     <Text style={styles.signupButtonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>

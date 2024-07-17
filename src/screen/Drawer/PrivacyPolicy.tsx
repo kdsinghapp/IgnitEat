@@ -1,15 +1,47 @@
 
-  import React from 'react';
+  import React, { useEffect } from 'react';
   import { View, ScrollView, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { image } from '../../config/utils/images';
 import { colors, marginTop } from '../../config/utils/utils';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_privacy_policy } from '../../redux/feature/featuresSlice';
+import Loading from '../../config/Loader';
+import WebView from 'react-native-webview';
   
   const PrivacyPolicy = () => {
     const navigation = useNavigation()
+    const isFocuse = useIsFocused()
+    const dispatch = useDispatch()
+    const isLoading = useSelector(state => state.feature.isLoading);
+    const Priacypolicy = useSelector(state => state.feature.Priacypolicy);
+    useEffect(() => {
+      dispatch(get_privacy_policy())
+    }, [isFocuse])
+  console.log('Priacypolicy',Priacypolicy?.content_description);
+  
+    const generateHtmlContent = content => `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet">
+      <style>
+        body {
+          
+          font-size:24px;
+          color: #000;
+        }
+      </style>
+    </head>
+    <body>
+      ${content}
+    </body>
+    </html>
+  `;
+  
     return (
       <View style={styles.container}>
-
+{isLoading?<Loading />:null}
 <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={image.back} style={styles.logo} />
@@ -17,45 +49,22 @@ import { useNavigation } from '@react-navigation/native';
         <Text style={styles.headerText}>Hack Aplate</Text>
         <Image source={image.appLogo} style={styles.menuIcon} resizeMode='contain' />
     </View>
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+        
         <Text style={styles.title}>Privacy Policy</Text>
           <Image
             source={image.PrivacyPolicy} // Replace with your image URL
             style={styles.image}
           />
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Privacy Policy</Text>
-            <Text style={styles.sectionContent}>
-              This Privacy Policy describes Our policies and procedures on the
-              collection, use and disclosure of Your information when You use
-              the Service and tells You about Your privacy rights and how the
-              law protects You. We use Your Personal data to provide and
-              improve the Service. By using the Service, You agree to the
-              collection and use of information in accordance with this Privacy
-              Policy. This Privacy Policy has been created with the help of the
-            </Text>
-          </View>
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Interpretation</Text>
-            <Text style={styles.sectionContent}>
-              The words of which the initial letter is capitalized have
-              meanings defined under the following conditions. The following
-              definitions shall have the same meaning regardless of whether
-              they appear in singular or in plural.
-            </Text>
-            <Text style={styles.sectionContent}>
-              Lorem ipsum dolor sit amet consectetur. Proin urna lorem odio
-              consectetur pharetra nisl sit et. Ut venenatis in id tortor arcu
-              ultrices ipsum et aliquet varius venenatis nec convallis sed.
-              Vestibulum felis velit laoreet nulla tellus neque malesuada. Ut
-              integer quam fermentum nullam pharetra massa in nibh aliquam.
-              Nulla pellentesque magna est consequat a placerat scelerisque.
-              Orci nunc eget metus ac egestas rhoncus consequat. Dictumst
-              habitasse nunc eget sit. Viverra volutpat lectus nunc et ipsum in
-              etiam ut vel.
-            </Text>
-          </View>
-        </ScrollView>
+       
+       <View style={styles.section}>
+          {Priacypolicy && Priacypolicy?.content_description && (
+            <WebView
+            showsVerticalScrollIndicator={false}
+              source={{ html: generateHtmlContent(Priacypolicy?.content_description) }}
+            />
+          )}
+        </View>
+
       </View>
     );
   };
@@ -107,6 +116,7 @@ import { useNavigation } from '@react-navigation/native';
     },
     section: {
       marginBottom: 20,
+flex:1
     },
     sectionTitle: {
       fontSize: 18,
