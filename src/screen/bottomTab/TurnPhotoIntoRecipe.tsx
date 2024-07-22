@@ -173,9 +173,9 @@ alignSelf:'center',position:'absolute'}}>
           </View>
 
           <TouchableOpacity
-            onPress={() => {
-              setCreateRecipeModal(true)
-            }}
+       onPress={()=>{
+        navigation.navigate(ScreenNameEnum.IngredientScreen)
+     }}
             style={styles.createButton}>
             <Text style={styles.createButtonText}>Create</Text>
           </TouchableOpacity>

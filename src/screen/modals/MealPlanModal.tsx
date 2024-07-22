@@ -7,6 +7,8 @@ import { image } from '../../config/utils/images';
 import TextInputField from '../../config/TextInput';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import BlackClose from '../../assets/svg/BlackClose.svg';
+import { useNavigation } from '@react-navigation/native';
+import ScreenNameEnum from '../../routes/screenName.enum';
 
 const MealPlanModal = ({ modalVisible, setModalVisible }) => {
 
@@ -14,7 +16,7 @@ const MealPlanModal = ({ modalVisible, setModalVisible }) => {
         setModalVisible(false);
         // Handle acceptance logic
     };
-
+const navigation =useNavigation()
     return (
         <Modal
             animationType="slide"
@@ -35,7 +37,11 @@ const MealPlanModal = ({ modalVisible, setModalVisible }) => {
 </View>
                     
              
-                    <TouchableOpacity style={[styles.button, ]} onPress={handleAccept}>
+                    <TouchableOpacity style={[styles.button, ]} 
+                    
+                    onPress={()=>{
+                        navigation.navigate(ScreenNameEnum.IngredientScreen)
+                     }}>
                         <Text style={styles.buttonText}>Show recipe-</Text>
                     </TouchableOpacity>
                    

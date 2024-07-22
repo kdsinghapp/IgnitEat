@@ -100,7 +100,11 @@ import SubscribePrime from '../modals/SubscribePrime';
           <TouchableOpacity style={styles.iconButton}>
             <Image  source={image.microphon} style={{height:30,width:30}} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+          onPress={()=>{
+            setCreateRecipeModal(true)
+          }}
+          style={styles.iconButton}>
           <Image  source={image.camera2} style={{height:30,width:30}} />
           </TouchableOpacity>
         </View>

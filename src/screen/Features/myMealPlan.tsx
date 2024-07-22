@@ -12,12 +12,14 @@ import AddGroceryModal from '../modals/AddGroceryModal';
 import MealGroceryModal from '../modals/MealGroceryModal';
 import ScreenNameEnum from '../../routes/screenName.enum';
 import AddtoCookBook from '../modals/AddtoCookBook';
+import CookBookEditName from '../modals/CookBooknameModal';
    
     
     const MyMealPlan = () => {
         const [OpenRecipeModal, setOpenRecipeModal] = useState(false);
         const [OpenGroceryModal, setOpenGroceryModal] = useState(false);
         const [OpenCookBookModal, setOpenCookBookModal] = useState(false);
+        const [ChangeMealName, setChangeMealName] = useState(false);
         const navigation = useNavigation()
         const renderMeals = ({ item }) => (
             <View style={styles.dayContainer}>
@@ -72,8 +74,8 @@ import AddtoCookBook from '../modals/AddtoCookBook';
                 <View style={styles.heading}>
                     <Text style={styles.headingText}>Meal Plan</Text>
                     <View style={styles.headerIcons}>
-                    <TouchableOpacity onPress={() => {navigation.navigate(ScreenNameEnum.ViewmealPlaning)}}>
-                        <Image source={image.circleDot} style={styles.headerIcon} />
+                    <TouchableOpacity onPress={() => {setChangeMealName(true)}}>
+                        <Image source={image.CircleEdit} style={styles.headerIcon} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => { setOpenGroceryModal(true) }}>
                         <Image source={image.grocery} style={styles.headerIcon} />
@@ -90,6 +92,7 @@ import AddtoCookBook from '../modals/AddtoCookBook';
                 <MealPlanModal modalVisible={OpenRecipeModal} setModalVisible={() => setOpenRecipeModal(false)} />
                 <MealGroceryModal modalVisible={OpenGroceryModal} setModalVisible={() => setOpenGroceryModal(false)} />
                 <AddtoCookBook modalVisible={OpenCookBookModal} setModalVisible={() => setOpenCookBookModal(false)} />
+                <CookBookEditName modalVisible={ChangeMealName} setModalVisible={() => setChangeMealName(false)} />
 
             </View>
         );

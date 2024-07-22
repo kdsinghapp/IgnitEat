@@ -37,12 +37,12 @@ const CookBookList = () => {
                 </TouchableOpacity>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={styles.heading}>CookBooks</Text>
+                <Text style={styles.heading}>Meal Plan CookBooks</Text>
                 <View style={styles.searchContainer}>
                     <Search />
                     <TextInput
                         style={styles.searchInput}
-                        placeholder="Type Cookbook Name To Search Or Create A New One"
+                        placeholder="Search a meal plan"
                     />
                     <BlackClose />
                 </View>
@@ -59,7 +59,7 @@ const CookBookList = () => {
                                     ]}
                                 onPress={() => {
 
-                                    navigation.navigate(ScreenNameEnum.CookBookDetails)
+                                    navigation.navigate(ScreenNameEnum.MealPlan)
                                 }}
                             >
                                 <Image source={item.logo} style={styles.addButtonImage} />

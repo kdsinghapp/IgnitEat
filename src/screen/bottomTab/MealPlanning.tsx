@@ -17,6 +17,7 @@
   import CreateRecipe from '../modals/CreateRecipe';
   import ScreenNameEnum from '../../routes/screenName.enum';
 import SubscribePrime from '../modals/SubscribePrime';
+import HorizontalScrollWithLoop from './HorizontalLoop';
 
   export default function MealPlanning() {
     const [diners, setDiners] = useState(2);
@@ -72,7 +73,7 @@ import SubscribePrime from '../modals/SubscribePrime';
           </View>
           <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity onPress={()=>{
-navigation.navigate(ScreenNameEnum.MealPlan)
+navigation.navigate(ScreenNameEnum.CookBookList)
 
           }} style={[styles.expandableHeader,{marginTop:10,backgroundColor:'#CEBE33',borderRadius:10,justifyContent:'center'}]}>
               <Text style={{color:'#fff',fontWeight:'600'}}>Already have a Meal Plan? Press Here</Text>
@@ -103,103 +104,10 @@ navigation.navigate(ScreenNameEnum.MealPlan)
               </TouchableOpacity>
              
             </View>
-          
-  
-        <View style={{padding:15,
-        margin:5,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          
-          elevation: 5,
-          backgroundColor:'#fff',borderRadius:20}}>
-              <Text style={[styles.sliderLabel,{alignSelf:'center',color:colors.btnColor,marginVertical:10}]}>Diners</Text>
-        <TouchableOpacity onPress={()=>{}} style={[styles.expandableHeader,{marginTop:10}]}>
-              <Text style={{color:colors.btnColor,fontWeight:'600'}}>Cuisine style, prefencies</Text>
-              <Image  style={{height:25,width:25}} source={image.circleDot} />
-          </TouchableOpacity>
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>Diners</Text>
-              <Text style={{ fontSize: 12, color: "#777777" }}>Set number of diners</Text>
-              <Slider
-                minimumValue={1}
-                maximumValue={10}
-                step={1}
-  
-                maximumTrackTintColor='#b7cbc0'
-                minimumTrackTintColor='#0E522D'
-                value={diners}
-                onValueChange={value => setDiners(value)}
-                style={styles.slider}
-                thumbImage={image.customThumb}
-  
-              />
-              <Text>{diners}</Text>
-            </View>
-  
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>Time</Text>
-              <Text style={{ fontSize: 12, color: "#777777" }}>Set your cooking time to fit your schedule</Text>
-              <Slider
-                minimumValue={1}
-                maximumValue={10}
-                step={1}
-  
-                maximumTrackTintColor='#b7cbc0'
-                minimumTrackTintColor='#0E522D'
-                value={diners}
-                onValueChange={value => setDiners(value)}
-                style={styles.slider}
-                thumbImage={image.customThumb}
-  
-              />
-              <Text>{diners}</Text>
-            </View>
-  
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>Level</Text>
-              <Text style={{ fontSize: 12, color: "#777777" }}>Define the level of details provided in the recipe instruction</Text>
-              <Slider
-                minimumValue={1}
-                maximumValue={10}
-                step={1}
-  
-                maximumTrackTintColor='#b7cbc0'
-                minimumTrackTintColor='#0E522D'
-                value={diners}
-                onValueChange={value => setDiners(value)}
-                style={styles.slider}
-                thumbImage={image.customThumb}
-  
-              />
-  
-              <Text>{['Beginner', 'Home Cooker', 'Chef'][level]}</Text>
-            </View>
-  
-            <View style={styles.sliderContainer}>
-              <Text style={styles.sliderLabel}>Mood</Text>
-              <Text style={{ fontSize: 12, color: "#777777" }}>Define the creativity level of the recipe</Text>
-              <Slider
-                minimumValue={1}
-                maximumValue={10}
-                step={1}
-  
-                maximumTrackTintColor='#b7cbc0'
-                minimumTrackTintColor='#0E522D'
-                value={diners}
-                onValueChange={value => setDiners(value)}
-                style={styles.slider}
-                thumbImage={image.customThumb}
-  
-              />
-  
-              <Text>{['Classic', 'Gourmet', 'Artisan'][mood]}</Text>
-            </View>
-            </View>
+          <View>
+            <HorizontalScrollWithLoop   />
+          </View>
+
             <TouchableOpacity
               onPress={() => {
       navigation.navigate(ScreenNameEnum.MealPlanPreferences)

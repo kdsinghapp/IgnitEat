@@ -28,19 +28,19 @@ const navigation = useNavigation()
   const CookbookItem = ({ name, type }) => (
     <TouchableOpacity 
     onPress={()=>{
-navigation.navigate(ScreenNameEnum.CookBookList)
+navigation.navigate(ScreenNameEnum.CookBookDetails)
     }}
     
     style={styles.item}>
       <Text style={styles.type}>{type}</Text>
-      <Text style={styles.name}>{name}</Text>
-      <TouchableOpacity
+      <Text style={[styles.name,{marginTop:30}]}>{name}</Text>
+      {/* <TouchableOpacity
       onPress={()=>{
         setOpenCookBookModal(true)
       }}
       style={styles.iconButton}>
         <Image source={image.circleDot} style={{ height: 20, width: 20 }} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </TouchableOpacity>
   );
   

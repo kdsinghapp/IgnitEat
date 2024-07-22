@@ -1,15 +1,27 @@
 
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
 import { colors } from '../../config/utils/colors';
 import { image, marginTop } from '../../config/utils/utils';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import ScreenNameEnum from '../../routes/screenName.enum';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_subscription } from '../../redux/feature/featuresSlice';
+import Loading from '../../config/Loader';
 
 const Subscription = () => {
-    const navigation = useNavigation()
+  const navigation = useNavigation()
+  const isFocuse = useIsFocused()
+  const dispatch = useDispatch()
+  const isLoading = useSelector(state => state.feature.isLoading);
+  const Subscription = useSelector(state => state.feature.getSubscription);
+    useEffect(() => {
+      dispatch(get_subscription())
+    }, [isFocuse])
+
   return (
     <View style={styles.container}>
+      {isLoading?<Loading />:null}
     <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
             <Image source={image.back} style={styles.logo} />
@@ -17,13 +29,20 @@ const Subscription = () => {
         <Text style={styles.headerText}>Hack Aplate</Text>
         <Image source={image.appLogo} style={styles.menuIcon} resizeMode='contain' />
     </View>
-    <ScrollView contentContainerStyle={{flex:1,   padding: 20,}}>
-      <Text style={styles.heading}>Subscription</Text>
-      <Text style={styles.planTitle}>Standard</Text>
+    <Text style={styles.heading}>Subscription</Text>
+    <ScrollView contentContainerStyle={{flex:1,}} showsVerticalScrollIndicator={false}>
+     {Subscription?.length > 0 ? <FlatList  
+      showsVerticalScrollIndicator={false}
+      data={Subscription}
+      renderItem={({item})=>(<>
+
+
+
+      <Text style={styles.planTitle}>{item.subscription_title}</Text>
       <View style={styles.card}>
     
-        <Text style={styles.planDescription}>Generate recipes from text</Text>
-        <Text style={styles.planPrice}>$5/<Text style={styles.planDuration}>Month</Text></Text>
+        <Text style={styles.planDescription}>{item.subscription_name}</Text>
+        <Text style={styles.planPrice}>${item.subscription_price}/<Text style={styles.planDuration}>Month</Text></Text>
         <TouchableOpacity 
            onPress={()=>{
             navigation.navigate(ScreenNameEnum.SubscriptionOption)
@@ -31,36 +50,16 @@ const Subscription = () => {
         style={styles.subscribeButton}>
           <Text style={styles.subscribeButtonText}>Subscribe to standard</Text>
         </TouchableOpacity>
-        <Text style={styles.planCredits}>50 credits per month</Text>
+        <Text style={styles.planCredits}>{item.subscription_description}</Text>
       </View>
-      <Text style={styles.planTitle}>Premium</Text>
-      <View style={styles.card}>
-       
-        <Text style={styles.planDescription}>Generate recipes from text</Text>
-        <Text style={styles.planPrice}>$9/<Text style={styles.planDuration}>Month</Text></Text>
-        <TouchableOpacity 
-           onPress={()=>{
-            navigation.navigate(ScreenNameEnum.SubscriptionOption)
-        }}
-        style={styles.subscribeButton}>
-          <Text style={styles.subscribeButtonText}>Subscribe to Premium</Text>
-        </TouchableOpacity>
-        <Text style={styles.planCredits}>100 credits per month</Text>
-      </View>
-      <Text style={styles.planTitle}>Premium +</Text>
-      <View style={styles.card}>
+      </>
+    )}
 
-        <Text style={styles.planDescription}>Generate recipes from text, image and voice</Text>
-        <Text style={styles.planPrice}>$12/<Text style={styles.planDuration}>Month</Text></Text>
-        <TouchableOpacity 
-        onPress={()=>{
-            navigation.navigate(ScreenNameEnum.SubscriptionOption)
-        }}
-        style={styles.subscribeButton}>
-          <Text style={styles.subscribeButtonText}>Subscribe to Premium +</Text>
-        </TouchableOpacity>
-        <Text style={styles.planCredits}>130 credits per month</Text>
-      </View>
+    />:
+    <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+      <Text style={{fontSize:16,color:'#000',fontWeight:'700'}}>No Subscription Found</Text>
+    </View>
+    }
       
     </ScrollView>
     </View>
@@ -116,7 +115,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#004d00',
-    marginBottom: 5,
+    marginBottom: 10,
+
   },
   planDescription: {
     fontSize: 16,

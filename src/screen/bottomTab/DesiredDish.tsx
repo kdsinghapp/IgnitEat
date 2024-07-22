@@ -4,7 +4,8 @@ import { View, Text, Image, TextInput, TouchableOpacity, StyleSheet, ScrollView,
 import { useNavigation } from '@react-navigation/native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { image } from '../../config/utils/images';
-import Slider from '@react-native-community/slider';
+import { Slider } from '@react-native-assets/slider'
+
 import { colors, marginTop } from '../../config/utils/utils';
 import Right from '../../assets/svg/rightIcon.svg'
 import Dot from '../../assets/svg/dot.svg'
@@ -17,7 +18,7 @@ import SignupModel from '../modals/SignupModel';
 import CreateRecipe from '../modals/CreateRecipe';
 import ScreenNameEnum from '../../routes/screenName.enum';
 export default function DesiredDish() {
-  const [diners, setDiners] = useState(2);
+
   const [time, setTime] = useState(10);
   const [level, setLevel] = useState('Home Cooker');
   const [mood, setMood] = useState('Gourmet');
@@ -28,7 +29,8 @@ export default function DesiredDish() {
   const inputRef = useRef(null); // Ref for TextInput
 
   const [editable, setEditable] = useState(false); // State to track edit mode
-
+  const [value, setValue] = useState(0);
+  const diners = value;
   const toggleEdit = () => {
     setEditable(!editable);
     if (!editable) {
@@ -138,20 +140,27 @@ export default function DesiredDish() {
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Diners</Text>
             <Text style={{ fontSize: 12, color: "#000" }}>Set number of diners</Text>
-            <Text style={{color:'#000'}}>{diners}</Text>
+          
             <Slider
-              minimumValue={1}
-              maximumValue={10}
-              
-              step={1} 
-              maximumTrackTintColor='#b7cbc0'
-              minimumTrackTintColor='#0E522D'
-              value={diners}
-              onValueChange={value => setDiners(value)}
-              style={styles.slider}
-              thumbImage={image.customThumb}
-
-            />
+        value={value}
+        minimumValue={0}
+        maximumValue={100}
+        step={1} // You probably want a step of 1 to make the slider usable
+        minimumTrackTintColor="#0E522D"
+        maximumTrackTintColor="#b7cbc0"
+        
+        trackHeight={8}
+        onValueChange={(newValue) => setValue(newValue)}
+        CustomThumb={({value: number}) => 
+          <View style={{ height: 20 }}>
+            <Text style={{ color: '#0E522D', position: 'absolute', marginTop: -25, left:value>10?2:7, fontWeight: '800' }}>
+              {value}
+            </Text>
+            <Image source={image.customThumb} style={{ height: 20, width: 22 }} />
+          </View>
+        }
+        style={{marginTop:20}}
+      />
             
           </View>
 
@@ -160,18 +169,25 @@ export default function DesiredDish() {
             <Text style={{ fontSize: 12, color: "#000" }}>Set your cooking time to fit your schedule</Text>
             <Text>{diners}</Text>
             <Slider
-              minimumValue={1}
-              maximumValue={10}
-              step={1}
-
-              maximumTrackTintColor='#b7cbc0'
-              minimumTrackTintColor='#0E522D'
-              value={diners}
-              onValueChange={value => setDiners(value)}
-              style={styles.slider}
-              thumbImage={image.customThumb}
-
-            />
+        value={value}
+        minimumValue={0}
+        maximumValue={100}
+        step={1} // You probably want a step of 1 to make the slider usable
+        minimumTrackTintColor="#0E522D"
+        maximumTrackTintColor="#b7cbc0"
+        
+        trackHeight={8}
+        onValueChange={(newValue) => setValue(newValue)}
+        CustomThumb={({value: number}) => 
+          <View style={{ height: 20 }}>
+            <Text style={{ color: '#0E522D', position: 'absolute', marginTop: -25, left:value>10?2:7, fontWeight: '800' }}>
+              {value}
+            </Text>
+            <Image source={image.customThumb} style={{ height: 20, width: 22 }} />
+          </View>
+        }
+        style={{marginTop:20}}
+      />
             
           </View>
 
@@ -180,18 +196,25 @@ export default function DesiredDish() {
             <Text style={{ fontSize: 12, color: "#000" }}>Define the level of details provided in the recipe instruction</Text>
             <Text>{['Beginner', 'Home Cooker', 'Chef'][level]}</Text>
             <Slider
-              minimumValue={1}
-              maximumValue={10}
-              step={1}
-
-              maximumTrackTintColor='#b7cbc0'
-              minimumTrackTintColor='#0E522D'
-              value={diners}
-              onValueChange={value => setDiners(value)}
-              style={styles.slider}
-              thumbImage={image.customThumb}
-
-            />
+        value={value}
+        minimumValue={0}
+        maximumValue={100}
+        step={1} // You probably want a step of 1 to make the slider usable
+        minimumTrackTintColor="#0E522D"
+        maximumTrackTintColor="#b7cbc0"
+        
+        trackHeight={8}
+        onValueChange={(newValue) => setValue(newValue)}
+        CustomThumb={({value: number}) => 
+          <View style={{ height: 20 }}>
+            <Text style={{ color: '#0E522D', position: 'absolute', marginTop: -25, left:value>10?2:7, fontWeight: '800' }}>
+              {value}
+            </Text>
+            <Image source={image.customThumb} style={{ height: 20, width: 22 }} />
+          </View>
+        }
+        style={{marginTop:20}}
+      />
 
            
           </View>
@@ -199,20 +222,27 @@ export default function DesiredDish() {
           <View style={styles.sliderContainer}>
             <Text style={styles.sliderLabel}>Mood</Text>
             <Text style={{ fontSize: 12, color: "#000" }}>Define the creativity level of the recipe</Text>
-            <Text>{['Classic', 'Gourmet', 'Artisan'][mood]}</Text>
+           
             <Slider
-              minimumValue={1}
-              maximumValue={10}
-              step={1}
-
-              maximumTrackTintColor='#b7cbc0'
-              minimumTrackTintColor='#0E522D'
-              value={diners}
-              onValueChange={value => setDiners(value)}
-              style={styles.slider}
-              thumbImage={image.customThumb}
-
-            />
+        value={value}
+        minimumValue={1}
+        maximumValue={100}
+        step={1} // You probably want a step of 1 to make the slider usable
+        minimumTrackTintColor="#0E522D"
+        maximumTrackTintColor="#b7cbc0"
+        
+        trackHeight={8}
+        onValueChange={(newValue) => setValue(newValue)}
+        CustomThumb={({value: number}) => 
+          <View style={{ height: 20 }}>
+            <Text style={{ color: '#0E522D', position: 'absolute', marginTop: -25, left:value>10?2:7, fontWeight: '800' }}>
+              {value<33?'Classic':value<=66?'Gourmet':'Artisan'}
+            </Text>
+            <Image source={image.customThumb} style={{ height: 20, width: 22 }} />
+          </View>
+        }
+        style={{marginTop:40}}
+      />
 
             
           </View>
@@ -331,6 +361,7 @@ const styles = StyleSheet.create({
   },
   sliderContainer: {
     marginBottom: 16,
+    marginHorizontal:10
   },
   sliderLabel: {
     fontSize: 16,

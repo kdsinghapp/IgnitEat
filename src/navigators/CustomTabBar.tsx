@@ -102,11 +102,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     alignItems: 'center',
+    backgroundColor:'#fff'
   },
   tabBar: {
     flexDirection: 'row',
     height:100,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+
   },
   scrollContainer: {
     flexDirection: 'row',
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
+    marginRight:20,
     marginBottom: 0
 
   },

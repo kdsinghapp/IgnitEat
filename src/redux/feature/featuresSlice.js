@@ -16,6 +16,7 @@ const initialState = {
   Priacypolicy: null,
   TermsCondition: null,
   getProfile: null,
+  getSubscription:[]
   
 };
 
@@ -96,6 +97,24 @@ export const get_terms_conditions = createAsyncThunk(
       return response.data.data;
     } catch (error) {
       console.log('🚀 ~ : get_terms_conditions error:', error);
+
+      return thunkApi.rejectWithValue(error);
+    }
+  },
+);
+export const get_subscription = createAsyncThunk(
+  'get_subscription',
+  async (params, thunkApi) => {
+    try {
+      const response = await API.get('/user/subscription/get-subscription');
+
+
+      if (response.data.status == '1') {
+        console.log('User get_subscription Succesfuly');
+      }
+      return response.data.data;
+    } catch (error) {
+      console.log('🚀 ~ : get_subscription error:', error);
 
       return thunkApi.rejectWithValue(error);
     }
@@ -185,6 +204,21 @@ const FeatureSlice = createSlice({
       state.Priacypolicy = action.payload;
     });
     builder.addCase(get_privacy_policy.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.isSuccess = false;
+    });
+
+    builder.addCase(get_subscription.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(get_subscription.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.isError = false;
+      state.getSubscription = action.payload;
+    });
+    builder.addCase(get_subscription.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.isSuccess = false;

@@ -104,7 +104,7 @@ const CreateMealPlan = () => {
 
                 <TouchableOpacity 
                     onPress={()=>{
-                        navigation.navigate(ScreenNameEnum.IngredientScreen)
+                        navigation.navigate(ScreenNameEnum.MealPlan)
                     }}
                 style={styles.nextButton}>
                     <Text style={styles.nextButtonText}>Create</Text>

@@ -26,7 +26,7 @@ import ScreenNameEnum from '../../routes/screenName.enum';
     
     
                         <Text style={styles.text}>
-                        Subscribe to Premium+ in order to generate a recipe from image
+                        Subscribe To Premium+ In Order To Generate A Recipe From Image
     
                         </Text>
     
@@ -35,7 +35,9 @@ import ScreenNameEnum from '../../routes/screenName.enum';
                         <TouchableOpacity 
                         
                         
-                        style={[styles.button, { marginTop: 20 }]} onPress={handleAccept}>
+                        style={[styles.button, { marginTop: 20 }]} onPress={()=>{
+                            navigation.navigate(ScreenNameEnum.Subscription)
+                        }}>
                             <Text style={styles.buttonText}>Subscribe</Text>
                         </TouchableOpacity>
     
@@ -84,9 +86,12 @@ import ScreenNameEnum from '../../routes/screenName.enum';
         },
         text: {
             fontSize: 16,
+            width:'75%',
             lineHeight: 24,
-            fontWeight: '600',
-            color: '#000'
+            fontWeight: '800',
+            color: '#000',
+            textAlign:'center',
+            
         },
         sectionTitle: {
             fontSize: 18,

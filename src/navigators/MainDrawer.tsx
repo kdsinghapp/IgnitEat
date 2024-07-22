@@ -14,11 +14,14 @@ export default function MainDrawer() {
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={{
+
           headerShown: false, 
           drawerLabelStyle: { marginLeft: -20, color: '#333', fontSize: 15 },
           drawerActiveBackgroundColor: '#e6f7e6',
           drawerActiveTintColor: '#004d00',
           drawerInactiveTintColor: '#666',
+          swipeEnabled: false,
+
         }}
       >
         <Drawer.Screen name="TabNavigator" component={TabNavigator} />
